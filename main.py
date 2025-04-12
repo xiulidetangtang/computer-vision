@@ -54,7 +54,7 @@ class MyTransform:
         img = np.array(img).astype(np.float32)/255.0
         img_array = (img-self.mean)/self.std
         return img_array.reshape(-1)
-def train(file_path,epoch):
+def train(file_path,epoch,lr=0.001,L2=0.0001,layer1=128,layer2=64):
     transform = MyTransform()
     train_dataset = My_dataset(root='./data', train=True, transform=transform)
 
@@ -74,9 +74,11 @@ def train(file_path,epoch):
     Y_train_val=Y_train_onehot[45000:]
     model = My_network(
         input_size=3072,
-        layer1_size=128,
-        layer2_size=64,
+        layer1_size=layer1,
+        layer2_size=layer2,
         output_size=10,
+        L2_lamda=L2,
+        learning_rate=lr
     )
     print('start training...')
     losses,val_losses,acc_lst = model.train(X_train_without_val, Y_train_without_val,X_train_val, Y_train_val,epochs=epoch)
