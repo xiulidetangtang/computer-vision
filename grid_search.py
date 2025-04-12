@@ -18,7 +18,7 @@ X_test = np.array(X_test)
 Y_test_onehot = np.zeros((len(test_dataset), 10))
 for i, y in enumerate(Y_test):
     Y_test_onehot[i, y] = 1
-for files in os.listdir('.'):
+for files in os.listdir('./parameters'):
     if files.endswith('params.npz'):
         file_lst.append(files)
 pattern= r"L2_([0-9.]+)_lr_([0-9.]+)_layers_([0-9]+)_([0-9]+)_params\.npz"
